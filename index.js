@@ -1,12 +1,11 @@
 const profilButtonNode = document.querySelector('.button__open-edit__profil');
-const popupNode = document.querySelector('.popup');
 const popupProfilNode = document.querySelector('.popup-profil');
 const popupCardNode = document.querySelector('.popup-card')
 const popupCloseButtonProfilNode = document.querySelector('.button-close-popup-profil');
 const popupCloseButtonCardNode = document.querySelector('.button-close-popup-card')
 const profilTitleNode = document.querySelector('.profil__title')
 const profilSubtitleNode = document.querySelector ('.profil__subtitle')
-const formProfilNode = document.querySelector('.form')
+const formProfilNode = document.querySelector('.form-edit-profil')
 const profilNameNode = document.querySelector('.user__input-name')
 const profilProfessionNode = document.querySelector('.input-profession')
 const popupSubmitNode = document.querySelector('.form__button')
@@ -18,7 +17,7 @@ const inputURLCard = document.querySelector('.input-URL-card')
 
 const cardImgElement = document.querySelector('.grid-card__img')
 
-
+const avatar = document.querySelector('.profil__avatar')
 
 
 
@@ -50,7 +49,6 @@ function composeItem(item){
     const newItem = templateElement.content.cloneNode(true);
     const cardImg = newItem.querySelector('.grid-card__img');
     cardImg.src = item.URL;
-    cardImg.addEventListener('click',handleImgOpenPopup)
     const likeButton = newItem.querySelector('.button_like')
     likeButton.addEventListener('click',handleButtonTogleLike)
     const removeButton = newItem.querySelector('.grid-card__button-remove');
@@ -60,15 +58,8 @@ function composeItem(item){
     return newItem
 }
 
-function handleImgOpenPopup(event){
-    event.target.classList.toggle('grid-card__img-active')
-}
 
 
-
-function handleButtonTogleLike(event){
-    event.target.classList.toggle('button_like-active')
-}
 
 
 
@@ -80,45 +71,6 @@ function removeItem(event){
 }
 
 
-
-
-profilButtonNode.addEventListener('click',handleButtonPopupProfilOpen);
-popupCloseButtonProfilNode.addEventListener('click',handleCloseButtonPopupProfil);
-popupCloseButtonCardNode.addEventListener('click',handleCloseButtonPopupCard)
-cardButtonNode.addEventListener('click',handleButtonPopupCardOpen);
-
-
-function handleButtonPopupProfilOpen(){
-    popupOpen(popupProfilNode)
-
-} 
-
-function handleButtonPopupCardOpen(){
-    popupOpen(popupCardNode)
-}
-
-function popupOpen(transmitted){
-    transmitted.classList.add('popup__visible')
-}
-
-function handleCloseButtonPopupProfil(){
-    popupClose(popupProfilNode)
-
-} 
-
-function handleCloseButtonPopupCard(){
-    popupClose(popupCardNode)
-
-}
-
-
-function popupClose(transmitted){
-    
-    transmitted.classList.remove('popup__visible')
-
-}
-
- 
 
 
 
@@ -156,14 +108,61 @@ function addNewItem (){
 }
 
 
+
+
+profilButtonNode.addEventListener('click',popupOpen);
+popupCloseButtonProfilNode.addEventListener('click',handleCloseButtonPopup);
+popupCloseButtonCardNode.addEventListener('click',handleCloseButtonPopup)
+cardButtonNode.addEventListener('click',popupOpen);
+
+
+function popupOpen(event){
+     
+    const popup = document.querySelector(`#${event.target.id.slice(12)}`)
+    
+        popup.classList.add('popup__visible');
+    
+} 
+
+function handleCloseButtonPopup(){
+    const popups = document.querySelectorAll('.popup')
+    popups.forEach((popup)=>{
+        popup.classList.remove('popup__visible')
+    })
+    
+} 
+
+
+renderList()
+bindAddItemListener()
+
+
+avatar.addEventListener('click', (event)=>{
+    
+    const figureFullimg = document.querySelector('.full-img');
+    const figureImg = figureFullimg.querySelector('.full-img__image'); 
+    figureImg.src = event.src;
+    figureFullimg.classList.add('popup__visible');
+    console.log(figureFullimg)
+    console.log(event.src)
+}
+)
+
+
+
+
+function handleButtonTogleLike(event){
+    event.target.classList.toggle('button_like-active')
+}
+
 function showError(form, input){
-    const error = form.querySelector('#{input.id}-error');
+    const error = form.querySelector(`#${input.id}-error`);
     error.textContent = input.validationMessage;
     input.classList.add('popup__input_state_invalid')
 }
 function hideError(form, input){
 
-const error = form.querySelector('#{input.id}-error');
+const error = form.querySelector(`#${input.id}-error`);
     error.textContent = '';
     input.classList.remove('popup__input_state_invalid')
 }
@@ -188,11 +187,11 @@ function setButtonState(button, isActive){
 
 function setEventListener (form){
     const inputList = form.querySelectorAll('.form__input')
-    const setButtonState = form.querySelector('.popup__button')
+    const submitButton = form.querySelector('.form__button')
     inputList.forEach((input)=>{
         input.addEventListener('input',(event)=>{
             checkInputValidity(form, input); 
-            setButtonState(setButtonState, form.checkValidity())
+            setButtonState(submitButton, form.checkValidity())
         }
         )
     })
@@ -213,7 +212,7 @@ function enableValidation(){
         })
 
         const submitButton = form.querySelector('.form__button');
-        setButtonState(submitbutton, form)
+        setButtonState(submitButton, form.checkValidity())
 
 
     })
@@ -221,9 +220,4 @@ function enableValidation(){
 }
 
 
-
-
-
-
-renderList()
-bindAddItemListener()
+enableValidation()
