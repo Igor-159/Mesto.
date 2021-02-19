@@ -177,7 +177,7 @@ function checkInputValidity(form, input){
 
 function setButtonState(button, isActive){
     if(isActive){
-        button.disabled = 'false';
+        //button.disabled = 'false';
         button.classList.remove('popup__button_invalid')
     }else{
         button.disabled = 'disabled';
