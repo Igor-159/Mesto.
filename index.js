@@ -141,12 +141,17 @@ avatar.addEventListener('click', (event)=>{
     
     const figureFullimg = document.querySelector('.full-img');
     const figureImg = figureFullimg.querySelector('.full-img__image'); 
-    figureImg.src = event.src;
+    figureImg.src = event.target.src;
     figureFullimg.classList.add('popup__visible');
-    console.log(figureFullimg)
-    console.log(event.src)
+    
 }
 )
+const figureImg = document.querySelector('.full-img__image')
+
+figureImg.addEventListener('click',(event)=>{
+    const figureFullimg = document.querySelector('.full-img')
+    figureFullimg.classList.remove('popup__visible')
+})
 
 
 
@@ -177,10 +182,10 @@ function checkInputValidity(form, input){
 
 function setButtonState(button, isActive){
     if(isActive){
-        button.disabled = 'false';
+        //button.disabled = 'false';
         button.classList.remove('popup__button_invalid')
     }else{
-        button.disabled = 'disabled';
+        //.disabled = 'disabled';
         button.classList.add('popup__button_invalid')
     }
 }
