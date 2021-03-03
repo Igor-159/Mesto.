@@ -14,10 +14,10 @@ const listCard = document.querySelector('.grid-cards')
 const templateElement = document.querySelector('.template')
 const inputTitleCard = document.querySelector('.input-title-card')
 const inputURLCard = document.querySelector('.input-URL-card')
-
+const popupImgFull = document.querySelector('.popup-full-img')
 const cardImgElement = document.querySelector('.grid-card__img')
 
-const avatar = document.querySelector('.profil__avatar')
+
 
 
 
@@ -42,13 +42,43 @@ function renderList(){
     listCard.append(...listItems)
 }
 
+/*class Card{
+    _container
+    _title
+    _img
+    _view
 
+
+
+    constructor(title, img, template){
+        this._title = title
+        this._img = img
+        this._template = template
+    }
+    _render = () => {
+        this._view = this._template.content.cloneNode(true)
+        this._view.querySelector('.grid-card__img').src = this._img;
+        this._view.querySelector('.button_like').
+        addEventListener('click', this._handleButtonTogleLike)
+        this._view.querySelector('.grid-card__button-remove')
+        .addEventListener('click',this._removeItem);
+        this._view.querySelector('.grid-card__title').textContent = this._title;
+        return this._view
+    }
+    _handleButtonTogleLike = event =>{
+        event.target.classList.toggle('button_like-active')
+    }
+    _removeItem = event =>{
+        this._view.remove()
+    }
+}*/
 
 
 function composeItem(item){
     const newItem = templateElement.content.cloneNode(true);
     const cardImg = newItem.querySelector('.grid-card__img');
     cardImg.src = item.URL;
+    cardImg.addEventListener('click', handlePopupImgFull(item))
     const likeButton = newItem.querySelector('.button_like')
     likeButton.addEventListener('click',handleButtonTogleLike)
     const removeButton = newItem.querySelector('.grid-card__button-remove');
@@ -58,7 +88,14 @@ function composeItem(item){
     return newItem
 }
 
-
+function handlePopupImgFull(item){
+    popupOpen(popupImgFull);
+    popupImgFull.querySelector('.full-img__image').src = item.URL;
+    popupImgFull.querySelector('.full-img__title').textContent = item.title;
+    
+    popupImgFull.querySelector('.full-img__image').alt = item.title;
+    
+}
 
 
 
@@ -110,17 +147,15 @@ function addNewItem (){
 
 
 
-profilButtonNode.addEventListener('click',popupOpen);
+/*profilButtonNode.addEventListener('click', popupOpen(popupProfilNode));
 popupCloseButtonProfilNode.addEventListener('click',handleCloseButtonPopup);
 popupCloseButtonCardNode.addEventListener('click',handleCloseButtonPopup)
-cardButtonNode.addEventListener('click',popupOpen);
+cardButtonNode.addEventListener('click', popupOpen(popupCardNode));
 
-
-function popupOpen(event){
+*/
+function popupOpen(popup){
      
-    const popup = document.querySelector(`#${event.target.id.slice(12)}`)
-    
-        popup.classList.add('popup__visible');
+popup.classList.add('popup__visible');
     
 } 
 
@@ -137,21 +172,8 @@ renderList()
 bindAddItemListener()
 
 
-avatar.addEventListener('click', (event)=>{
-    
-    const figureFullimg = document.querySelector('.full-img');
-    const figureImg = figureFullimg.querySelector('.full-img__image'); 
-    figureImg.src = event.target.src;
-    figureFullimg.classList.add('popup__visible');
-    
-}
-)
-const figureImg = document.querySelector('.full-img__image')
 
-figureImg.addEventListener('click',(event)=>{
-    const figureFullimg = document.querySelector('.full-img')
-    figureFullimg.classList.remove('popup__visible')
-})
+
 
 
 
@@ -226,3 +248,7 @@ function enableValidation(){
 
 
 enableValidation()
+
+
+
+
