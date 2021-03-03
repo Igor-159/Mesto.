@@ -18,16 +18,21 @@
                 <div class="profil-title-conteiner">
                 <h1 class="profil__title">Жак-ИВ Кусто</h1>
                 <button type="button" class="button button-pen button__open-edit__profil" 
-                id="button-open-popup-profil"></button>
+                ></button>
                 </div>
                 <p class="profil__subtitle">Исследователь океана</p>
             </div>
             <button type="button" class="button button-plus button-open-add_card"
-            id="button-open-popup-card"></button> 
+            ></button> 
         </section>
         <section class="grid-cards">
         </section>
-               
+    </main>
+    <footer class="footer">
+        <address >
+            <p class="avtor">C 2020 Mestro Russia</p>
+        </address>
+    </footer>      
 
             
             
@@ -42,24 +47,21 @@
                 </li>
             </template>
 
-            <figure class="full-img">
-                <div class="full-img__container">
-                  <img class="full-img__image" src="" alt="">
-                  <figcaption class="full-img__title">
-                  </figcaption>
-                  <button class="full-img__close popup__img__button_close" type="button"></button>
-                </div>
-              </figure>
-        
-    </main>
-    <footer class="footer">
-        <address >
-            <p class="avtor">C 2020 Mestro Russia</p>
-        </address>
-    </footer>
+            
+            
+    
+
+    <figure class="popup popup-full-img">
+        <div class="full-img__container">
+          <img class="full-img__image" src="" alt="">
+          <figcaption class="full-img__title">
+          </figcaption>
+          <button class="popup__close-button full-img__close popup__img__button_close" type="button"></button>
+        </div>
+    </figure>
 
 
-    <div class="popup popup-profil " id="popup-profil">
+    <div class="popup popup-profil " >
         <div class="popup__window">
             <button type="button" class="popup__close-button button-close-popup-profil"></button>
             <form class="form form-edit-profil" name="editing a profile" novalidate> 
@@ -92,7 +94,7 @@
         </div>
     </div>
 
-    <div class="popup popup-card" id="popup-card">
+    <div class="popup popup-card" >
         <div class="popup__window">
             <button type="button" class="popup__close-button button-close-popup-card"></button>
             <form class="form" name="addCard" novalidate> 
